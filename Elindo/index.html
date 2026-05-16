@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Quest Academy</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="aurora aurora-left"></div>
+    <div class="aurora aurora-right"></div>
+
+    <section id="startScreen" class="start-screen">
+      <div class="start-backdrop"></div>
+      <div class="start-shell">
+        <div class="start-hero">
+          <p class="eyebrow">Adventure Setup</p>
+          <h1>English Quest Academy</h1>
+          <p class="start-text">
+            Create your explorer, choose your study style, and use a password as
+            your save key so you can load your progress later.
+          </p>
+        </div>
+
+        <div class="start-panels">
+          <article class="start-card">
+            <div class="start-tabs">
+              <button id="newGameTabBtn" class="tab-button active" type="button">New Adventure</button>
+              <button id="loadGameTabBtn" class="tab-button" type="button">Load Save</button>
+            </div>
+
+            <form id="setupForm" class="setup-form">
+              <label class="setup-field">
+                <span>Player name</span>
+                <input id="playerNameInput" type="text" maxlength="24" placeholder="Type your explorer name" />
+              </label>
+
+              <label class="setup-field">
+                <span>Starting grade</span>
+                <select id="startGradeSelect"></select>
+              </label>
+
+              <div class="setup-inline">
+                <button id="startPlacementBtn" class="secondary-button" type="button">
+                  Find my level
+                </button>
+                <button id="openSetupSettingsBtn" class="ghost-button" type="button">
+                  Settings
+                </button>
+                <span class="setup-inline-copy">
+                  Answer a few questions and get a recommended starting grade.
+                </span>
+              </div>
+
+              <section id="placementPanel" class="placement-panel hidden">
+                <div class="section-head">
+                  <div>
+                    <p class="eyebrow">Placement Check</p>
+                    <h2>Recommended Starting Level</h2>
+                  </div>
+                  <span id="placementProgress" class="pill pill-soft">Not started</span>
+                </div>
+
+                <p id="placementIntro" class="grade-summary">
+                  This quick check uses reading, grammar, and practical English
+                  questions to suggest the best grade to begin with.
+                </p>
+                <div id="placementPrompt" class="media-card">
+                  Press "Find my level" to begin the placement check.
+                </div>
+                <div id="placementChoices" class="choice-area"></div>
+                <div class="action-row">
+                  <button id="placementNextBtn" class="primary-button hidden" type="button">
+                    Next question
+                  </button>
+                  <button id="placementCloseBtn" class="ghost-button" type="button">
+                    Close
+                  </button>
+                </div>
+                <p id="placementResult" class="start-feedback hidden"></p>
+              </section>
+
+              <label class="setup-field">
+                <span>Password save key</span>
+                <input id="savePasswordInput" type="password" maxlength="32" placeholder="Type a password to save and load" />
+              </label>
+
+              <button id="startAdventureBtn" class="primary-button start-button" type="submit">
+                Enter World
+              </button>
+            </form>
+
+            <form id="loadForm" class="setup-form hidden">
+              <label class="setup-field">
+                <span>Password save key</span>
+                <input id="loadPasswordInput" type="password" maxlength="32" placeholder="Type the same password to load" />
+              </label>
+
+              <button id="loadAdventureBtn" class="primary-button start-button" type="submit">
+                Load Saved Adventure
+              </button>
+            </form>
+
+            <p id="startFeedback" class="start-feedback">
+              Choose your settings here first. Your password becomes the key for saving and loading progress.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="settingsModal" class="settings-modal hidden" aria-hidden="true">
+      <div id="settingsBackdrop" class="settings-backdrop"></div>
+      <div class="settings-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Settings</p>
+            <h2>Adjust Your Experience</h2>
+          </div>
+          <button id="closeSettingsBtn" class="ghost-button" type="button">Close</button>
+        </div>
+
+        <div class="settings-grid">
+          <label class="setup-field">
+            <span>Mode</span>
+            <select id="experienceModeSelect">
+              <option value="adventure">Adventure Mode</option>
+              <option value="learning">Learning Mode</option>
+            </select>
+          </label>
+
+          <label class="setup-field">
+            <span>Theme</span>
+            <select id="themeSelect">
+              <option value="light">Normal Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+
+          <label class="setup-field">
+            <span>Avatar color</span>
+            <select id="avatarThemeSelect">
+              <option value="sky">Sky Blue</option>
+              <option value="sunset">Sunset Orange</option>
+              <option value="forest">Forest Green</option>
+              <option value="violet">Violet Knight</option>
+            </select>
+          </label>
+
+          <label class="setup-field">
+            <span>Sound</span>
+            <select id="soundModeSelect">
+              <option value="on">Sound On</option>
+              <option value="off">Sound Off</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="action-row">
+          <button id="saveSettingsBtn" class="primary-button" type="button">Save settings</button>
+        </div>
+      </div>
+    </section>
+
+    <main id="appShell" class="shell hidden">
+      <section class="hero card">
+        <div class="hero-copy">
+          <p id="heroEyebrow" class="eyebrow">Map-First English RPG</p>
+          <h1>English Quest Academy</h1>
+          <p id="heroText" class="hero-text">
+            Walk the world, enter places, and beat English challenges to move
+            forward.
+          </p>
+
+          <div class="hero-badges">
+            <span id="heroBadgeOne">Top-down block map</span>
+            <span id="heroBadgeTwo">Unlock new zones by clearing quests</span>
+            <span id="heroBadgeThree">Big question banks from Pre-School to Grade 13</span>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-block">
+            <span class="stat-label">XP</span>
+            <strong id="xpValue">0</strong>
+          </div>
+          <div class="stat-block">
+            <span class="stat-label">Stars</span>
+            <strong id="starValue">0</strong>
+          </div>
+          <div class="stat-block">
+            <span class="stat-label">Streak</span>
+            <strong id="streakValue">0</strong>
+          </div>
+          <div class="stat-block">
+            <span class="stat-label">Coins</span>
+            <strong id="coinValue">0</strong>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button id="openSettingsBtn" class="ghost-button" type="button">Settings</button>
+        </div>
+      </section>
+
+      <section class="world-panel card">
+        <div class="section-head">
+          <div>
+            <p id="worldEyebrow" class="eyebrow">Top-Down Adventure</p>
+            <h2 id="worldTitle">Quest World</h2>
+          </div>
+          <div class="world-actions">
+            <span id="playerBadge" class="pill">Explorer</span>
+            <span id="modeBadge" class="pill pill-soft">Adventure Mode</span>
+            <span id="saveStatus" class="pill pill-soft">No password save active</span>
+            <span id="mapStatus" class="pill pill-soft">Move with arrow keys or WASD</span>
+            <button id="saveNowBtn" class="secondary-button" type="button">
+              Save now
+            </button>
+            <button id="resetProgressBtn" class="ghost-button" type="button">
+              Reset progress
+            </button>
+          </div>
+        </div>
+
+        <div class="world-layout">
+          <div class="map-stage adventure-only">
+            <div id="mapFrame" class="map-frame">
+              <div id="worldMap" class="world-map" aria-label="Top down world map"></div>
+            </div>
+
+            <div class="map-overlay-strip">
+              <div class="mini-card overlay-card">
+                <span class="mini-label">Player Location</span>
+                <strong id="mapLocation">Spawn Point</strong>
+              </div>
+              <div class="mini-card overlay-card">
+                <span class="mini-label">Zone Objective</span>
+                <strong id="mapObjective">Walk onto a place and clear challenges to unlock the next zone.</strong>
+              </div>
+              <div class="mini-card overlay-card">
+                <span class="mini-label">Map Hint</span>
+                <strong id="mapHint">Step into a building or area to focus that place.</strong>
+              </div>
+            </div>
+          </div>
+
+          <section id="learningPlaceStage" class="quest-card learning-only hidden">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Choose Place</p>
+                <h2>Practice Areas</h2>
+              </div>
+              <span id="learningPlaceStatus" class="pill pill-soft">Pick a place to study</span>
+            </div>
+
+            <p class="grade-summary">
+              Choose the place you want to practise in this grade. This is your main study area in learning mode.
+            </p>
+
+            <div id="learningPlaceGrid" class="place-grid learning-place-grid" aria-label="Learning mode places"></div>
+          </section>
+
+          <div id="studyHub" class="study-hub learning-only hidden">
+            <article class="quest-card">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Learning Studio</p>
+                  <h2>Focused Study Desk</h2>
+                </div>
+                <span class="pill">Adult Mode</span>
+              </div>
+              <p id="studyHubText" class="grade-summary">
+                Learning mode removes the map and keeps the serious part: choose a
+                grade, open a question bank, and practise with focused repetition.
+              </p>
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <span class="mini-label">Current Track</span>
+                  <strong id="studyTrackValue">Pre-School</strong>
+                </div>
+                <div class="mini-card">
+                  <span class="mini-label">Focus Place</span>
+                  <strong id="studyPlaceValue">School</strong>
+                </div>
+                <div class="mini-card">
+                  <span class="mini-label">Study Rewards</span>
+                  <strong id="studyRewardValue">Earn coins from correct answers</strong>
+                </div>
+              </div>
+              <div class="media-card">
+                Pick a grade and place below, then work through the challenge bank in
+                order. You still earn XP, stars, and coins, but the experience is
+                quieter and more study-focused.
+              </div>
+            </article>
+          </div>
+
+          <aside class="game-sidebar">
+            <div class="map-sidebar">
+              <div class="mini-card">
+                <span id="miniLabelOne" class="mini-label">Selected Place</span>
+                <strong id="worldValue"></strong>
+              </div>
+              <div class="mini-card">
+                <span id="miniLabelTwo" class="mini-label">Unlock Progress</span>
+                <strong id="goalValue"></strong>
+              </div>
+              <div class="mini-card">
+                <span id="miniLabelThree" class="mini-label">Question Bank</span>
+                <strong id="skillValue"></strong>
+              </div>
+            </div>
+
+            <article class="challenge-panel quest-card">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Live Mission</p>
+                  <h2 id="challengeTitle">Pick a mission to begin</h2>
+                </div>
+                <span id="challengeType" class="pill pill-soft">Ready</span>
+              </div>
+
+              <p id="challengeSkill" class="challenge-skill">
+                Choose a mission from the quest dock to start playing.
+              </p>
+
+              <div id="challengeMedia" class="challenge-media"></div>
+
+              <form id="challengeForm" class="challenge-form">
+                <div id="choiceArea" class="choice-area"></div>
+
+                <label id="textAnswerWrap" class="text-answer hidden">
+                  <span>Your answer</span>
+                  <textarea
+                    id="textAnswer"
+                    rows="5"
+                    placeholder="Type your answer here..."
+                  ></textarea>
+                </label>
+
+                <div class="action-row">
+                  <button id="playAudioBtn" class="secondary-button hidden" type="button">
+                    Play listening audio
+                  </button>
+                  <button id="speakBtn" class="secondary-button hidden" type="button">
+                    Speak your answer
+                  </button>
+                  <button id="submitBtn" class="primary-button" type="submit">
+                    Check answer
+                  </button>
+                </div>
+              </form>
+
+              <div id="feedbackBox" class="feedback-box">
+                Clear a mission to earn XP, stars, and a stronger streak.
+              </div>
+            </article>
+
+            <article id="studyShop" class="quest-card learning-only hidden">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Reward Shop</p>
+                  <h2>Spend Your Coins</h2>
+                </div>
+                <span id="shopStatus" class="pill pill-soft">Earn coins by studying</span>
+              </div>
+              <div id="shopList" class="mission-list"></div>
+            </article>
+
+            <div class="dpad adventure-only" aria-label="Movement controls">
+              <button id="moveUpBtn" class="ghost-button dpad-button" type="button">Up</button>
+              <div class="dpad-row">
+                <button id="moveLeftBtn" class="ghost-button dpad-button" type="button">Left</button>
+                <button id="startChallengeBtn" class="primary-button dpad-center" type="button">Open challenge</button>
+                <button id="moveRightBtn" class="ghost-button dpad-button" type="button">Right</button>
+              </div>
+              <button id="moveDownBtn" class="ghost-button dpad-button" type="button">Down</button>
+            </div>
+          </aside>
+        </div>
+
+        <div class="world-dock">
+          <article class="grade-panel quest-card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Current Expedition</p>
+                <h2 id="gradeTitle">Pre-School</h2>
+              </div>
+              <span id="gradeBadge" class="pill">Starter Path</span>
+            </div>
+
+            <p id="gradeSummary" class="grade-summary"></p>
+            <p id="placeSummary" class="grade-summary hidden"></p>
+
+            <h3 class="subhead">Challenge List</h3>
+            <div id="missionList" class="mission-list"></div>
+          </article>
+
+          <div class="world-meta">
+            <section class="grade-rail quest-card">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Grades</p>
+                  <h2>Choose Grade</h2>
+                </div>
+              </div>
+              <div id="gradeGrid" class="grade-grid" aria-label="Available grades"></div>
+            </section>
+
+            <section class="place-rail quest-card">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Places</p>
+                  <h2>Choose Place</h2>
+                </div>
+                <span id="placeRailStatus" class="pill pill-soft">Unlock places by clearing challenges</span>
+              </div>
+              <div id="placeGrid" class="place-grid" aria-label="Available places"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard hidden">
+        <article class="grade-panel card dashboard-copy">
+          <div class="section-head">
+            <div>
+              <p id="dashboardEyebrowOne" class="eyebrow">How To Play</p>
+              <h2 id="dashboardTitleOne">Adventure Loop</h2>
+            </div>
+            <span id="dashboardPillOne" class="pill">Map First</span>
+          </div>
+          <p id="dashboardTextOne" class="grade-summary">
+            Walk your character into a place, open a mission from the quest dock,
+            solve English tasks, and unlock the next zone on the world map.
+          </p>
+        </article>
+
+        <article class="challenge-panel card dashboard-copy">
+          <div class="section-head">
+            <div>
+              <p id="dashboardEyebrowTwo" class="eyebrow">World Style</p>
+              <h2 id="dashboardTitleTwo">Game Feel</h2>
+            </div>
+            <span id="dashboardPillTwo" class="pill pill-soft">Prodigy-Inspired Flow</span>
+          </div>
+          <p id="dashboardTextTwo" class="grade-summary">
+            The map is now the main stage, with the quest panel and controls attached
+            to it like a HUD. Grades, places, and curriculum sit lower as support.
+          </p>
+        </article>
+      </section>
+
+      <section class="curriculum card hidden">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Learning Blueprint</p>
+            <h2 id="curriculumTitle">What this grade trains</h2>
+          </div>
+          <span id="curriculumPill" class="pill pill-soft">Progressive Path</span>
+        </div>
+
+        <p id="curriculumIntro" class="curriculum-intro"></p>
+        <div id="curriculumContent" class="curriculum-content"></div>
+      </section>
+    </main>
+  </body>
+</html>
